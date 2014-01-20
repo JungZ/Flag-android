@@ -4,7 +4,7 @@ import com.google.api.client.json.GenericJson;
 import com.google.api.client.json.JsonString;
 import com.google.api.client.util.Key;
 
-public class ShopHint extends GenericJson {
+public class Shop extends GenericJson {
 	@Key
 	@JsonString
 	private Long id;
@@ -14,6 +14,9 @@ public class ShopHint extends GenericJson {
 
 	@Key
 	private int type;
+
+	@Key
+	private String description;
 
 	@Key
 	private int reward1;
@@ -45,6 +48,14 @@ public class ShopHint extends GenericJson {
 		this.type = type;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public int getReward1() {
 		return reward1;
 	}
@@ -59,14 +70,5 @@ public class ShopHint extends GenericJson {
 
 	public void setReward2(int reward2) {
 		this.reward2 = reward2;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-
-		sb.append("name=" + name).append(", type=" + type).append(", reward1=" + reward1).append(", reward2=" + reward2);
-
-		return sb.toString();
 	}
 }

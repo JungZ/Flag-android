@@ -29,18 +29,18 @@ public class FlagCollection extends GenericJson {
 		this.flags = flags;
 	}
 
-	public List<MarkerOptions> markerOptionsList() {
-		List<MarkerOptions> markers = new ArrayList<MarkerOptions>();
+	public List<MarkerOptions> toMarkerOptionsList() {
+		List<MarkerOptions> markerOptionsList = new ArrayList<MarkerOptions>();
 		
 		for (Flag flag : flags) {
-			MarkerOptions marker = new MarkerOptions();
-			marker.position(new LatLng(flag.getLat(), flag.getLon()));
-			marker.title(String.valueOf(flag.getShopId()));
-			marker.draggable(false);
-			markers.add(marker);
+			MarkerOptions markerOptions = new MarkerOptions();
+			markerOptions.position(new LatLng(flag.getLat(), flag.getLon()));
+			markerOptions.title(String.valueOf(flag.getShopId()));
+			markerOptions.draggable(false);
+			markerOptionsList.add(markerOptions);
 		}
 		
-		return markers;
+		return markerOptionsList;
 	}
 
 	@Override

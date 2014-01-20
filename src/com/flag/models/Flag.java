@@ -1,12 +1,12 @@
 package com.flag.models;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.api.client.json.GenericJson;
 import com.google.api.client.json.JsonString;
 import com.google.api.client.util.Key;
 
 public class Flag extends GenericJson {
-	public static final double RADIUS = 0.0044762327;
-
 	@Key
 	@JsonString
 	private Long id;
@@ -25,10 +25,20 @@ public class Flag extends GenericJson {
 	private Long shopId;
 
 	@Key
-	private ShopHint shopHint;
+	private String shopName;
+
+	@Key
+	private int reward1;
+
+	@Key
+	private int reward2;
 
 	public Long getId() {
 		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public double getLat() {
@@ -63,12 +73,37 @@ public class Flag extends GenericJson {
 		this.shopId = shopId;
 	}
 
-	public ShopHint getShopHint() {
-		return shopHint;
+	public String getShopName() {
+		return shopName;
 	}
 
-	public void setShopHint(ShopHint shopHint) {
-		this.shopHint = shopHint;
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public int getReward1() {
+		return reward1;
+	}
+
+	public void setReward1(int reward1) {
+		this.reward1 = reward1;
+	}
+
+	public int getReward2() {
+		return reward2;
+	}
+
+	public void setReward2(int reward2) {
+		this.reward2 = reward2;
+	}
+
+	public MarkerOptions toMarkerOptions() {
+		MarkerOptions markerOptions = new MarkerOptions();
+		markerOptions.position(new LatLng(lat, lon));
+		markerOptions.title(String.valueOf(shopId));
+		markerOptions.draggable(false);
+
+		return markerOptions;
 	}
 
 	@Override
