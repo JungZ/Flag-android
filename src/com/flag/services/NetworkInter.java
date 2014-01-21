@@ -27,6 +27,18 @@ public class NetworkInter {
 			
 		}, handler);
 	}
+	
+	public static <T> void getUser(ResponseHandler<T> handler, final long id) {
+		ThreadManager.execute(new Work<T>() {
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public T work() throws IOException {
+				return (T) client.users().get(id).execute();
+			}
+			
+		}, handler);
+	}
 
 	public static <T> void flagList(ResponseHandler<T> handler, final double lat, final double lon) {
 		ThreadManager.execute(new Work<T>() {
@@ -35,6 +47,18 @@ public class NetworkInter {
 			@Override
 			public T work() throws IOException {
 				return (T) client.flags().list(lat, lon).execute();
+			}
+			
+		}, handler);
+	}
+	
+	public static <T> void getShop(ResponseHandler<T> handler, final long id) {
+		ThreadManager.execute(new Work<T>() {
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public T work() throws IOException {
+				return (T) client.shops().get(id).execute();
 			}
 			
 		}, handler);
