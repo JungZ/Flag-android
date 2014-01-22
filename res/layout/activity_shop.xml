@@ -27,12 +27,6 @@
         android:onClick="checkIn"
         android:text="@string/check_in" />
 
-    <TextView
-        android:id="@+id/text_shop_magnetic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center" />
-
     <Button
         android:id="@+id/button_shop_go_to_items"
         android:layout_width="match_parent"

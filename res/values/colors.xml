@@ -3,5 +3,6 @@
 
     <color name="transparent">#00FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background_light">#F0F0F0</color>
 
 </resources>

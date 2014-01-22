@@ -49,7 +49,8 @@ public class ItemsActivity extends LocatedSubCategoryActivity {
 				if (response == null || response.getItems() == null)
 					return;
 				
-				items = response.getItems();
+				items.clear();
+				items.addAll(response.getItems());
 				refresh();
 			}
 			

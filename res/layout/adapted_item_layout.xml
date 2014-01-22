@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="220dp"
+    android:layout_height="250dp"
     android:orientation="vertical"
+    android:background="@color/background_light"
     android:padding="5dp" >
 
     <FrameLayout
@@ -13,13 +14,12 @@
             android:id="@+id/image_item_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="3dp"
             android:scaleType="centerCrop" />
         
         <ImageView
             android:id="@+id/image_item_badge"
-            android:layout_width="6dp"
-            android:layout_height="6dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_gravity="top|right"
             android:scaleType="fitXY" />
     </FrameLayout>
