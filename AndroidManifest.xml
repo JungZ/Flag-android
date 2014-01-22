@@ -38,12 +38,8 @@
             android:value="AIzaSyCQcUkrRmSvIpEDrswojd5NsGFgCGZV52o" />
 
         <activity
-            android:name="com.flag.activities.TestActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name="com.flag.activities.MapActivity"
-            android:label="@string/title_activity_map"
+            android:label="@string/app_name"
             android:theme="@style/FullScreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,15 +49,15 @@
         </activity>
         <activity
             android:name="com.flag.activities.ShopActivity"
-            android:label="@string/title_activity_shop" >
+            android:label="@string/empty" >
         </activity>
         <activity
             android:name="com.flag.activities.ItemsActivity"
-            android:label="@string/title_activity_items" >
+            android:label="@string/empty" >
         </activity>
         <activity
             android:name="com.flag.activities.RewardActivity"
-            android:label="@string/title_activity_reward" >
+            android:label="@string/empty" >
         </activity>
     </application>
 

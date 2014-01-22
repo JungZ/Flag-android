@@ -11,6 +11,7 @@ import android.os.Bundle;
 import com.flag.R;
 import com.flag.models.Flag;
 import com.flag.models.FlagCollection;
+import com.flag.models.Shop;
 import com.flag.services.NetworkInter;
 import com.flag.services.ResponseHandler;
 import com.flag.utils.LocationUtils;
@@ -39,19 +40,15 @@ public class MapActivity extends Activity implements OnCameraChangeListener, Con
 		setContentView(R.layout.activity_map);
 
 		locationClient = new LocationClient(this, this, this);
+		locationClient.connect();
+		
 		setUpMap();
 	}
 
 	@Override
-	protected void onStart() {
-		super.onStart();
-		locationClient.connect();
-	}
-
-	@Override
-	protected void onStop() {
+	protected void onDestroy() {
 		locationClient.disconnect();
-		super.onStop();
+		super.onDestroy();
 	}
 
 	private void setUpMap() {
@@ -92,7 +89,7 @@ public class MapActivity extends Activity implements OnCameraChangeListener, Con
 		if (zoomFar())
 			return;
 
-		if (positionNear())
+		if (positionClose())
 			return;
 
 		NetworkInter.flagList(new ResponseHandler<FlagCollection>() {
@@ -114,11 +111,11 @@ public class MapActivity extends Activity implements OnCameraChangeListener, Con
 		return map.getCameraPosition().zoom < 14;
 	}
 
-	private boolean positionNear() {
+	private boolean positionClose() {
 		if (prePosition == null)
 			return false;
 
-		if (LocationUtils.isNearby(prePosition.latitude, prePosition.longitude, map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude))
+		if (LocationUtils.isClose(prePosition.latitude, prePosition.longitude, map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude))
 			return true;
 		else
 			return false;
@@ -143,7 +140,8 @@ public class MapActivity extends Activity implements OnCameraChangeListener, Con
 		long shopId = markerMap.get(marker);
 		
 		Intent intent = new Intent(this, ShopActivity.class);
-		intent.putExtra("shopId", shopId);
+		intent.putExtra(Shop.EXTRA_SHOP_ID, shopId);
+		intent.putExtra(Flag.EXTRA_LATLNG, marker.getPosition());
 		startActivity(intent);
 	}
 

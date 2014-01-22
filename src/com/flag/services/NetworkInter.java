@@ -2,8 +2,13 @@ package com.flag.services;
 
 import java.io.IOException;
 
+import android.graphics.Bitmap;
+import android.widget.ImageView;
+
 import com.flag.models.User;
 import com.flag.services.apis.FlagClient;
+import com.flag.utils.BitmapCache;
+import com.flag.utils.BitmapUrlLoadTask;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.gson.GsonFactory;
 
@@ -62,6 +67,15 @@ public class NetworkInter {
 			}
 			
 		}, handler);
+	}
+	
+	public static void getImage(ImageView imageView, String url) {
+		Bitmap bitmap = BitmapCache.getBitmapItem(url);
+		
+		if (bitmap != null)
+			imageView.setImageBitmap(bitmap);
+		else
+			new BitmapUrlLoadTask(imageView).execute(url);
 	}
 
 }

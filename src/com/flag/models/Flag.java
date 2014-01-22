@@ -7,6 +7,8 @@ import com.google.api.client.json.JsonString;
 import com.google.api.client.util.Key;
 
 public class Flag extends GenericJson {
+	public static final String EXTRA_LATLNG = "com.flag.models.extra.latlng";
+
 	@Key
 	@JsonString
 	private Long id;
@@ -100,7 +102,7 @@ public class Flag extends GenericJson {
 	public MarkerOptions toMarkerOptions() {
 		MarkerOptions markerOptions = new MarkerOptions();
 		markerOptions.position(new LatLng(lat, lon));
-		markerOptions.title(String.valueOf(shopId));
+		markerOptions.title(shopName);
 		markerOptions.draggable(false);
 
 		return markerOptions;
