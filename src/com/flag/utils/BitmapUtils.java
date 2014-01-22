@@ -7,48 +7,21 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 
-import com.flag.app.GlobalApplication;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
-import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.PorterDuff.Mode;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 import android.media.ExifInterface;
-import android.util.Log;
 
-public class BitmapWorkUtils {
-	public static int scaleFactor = 3;
+import com.flag.app.GlobalApplication;
 
-	public static class IconParams {
-		public static int width = 48 * scaleFactor;
-		public static int height = 48 * scaleFactor;
-	}
-
-	public static class ThumnailParams {
-		public static int width = 120 * scaleFactor;
-		public static int height = 120 * scaleFactor;
-	}
-
-	public static class PreviewParams {
-		public static int width = 240 * scaleFactor;
-		public static int height = 180 * scaleFactor;
-	}
-
-	public static class ViewParams {
-		public static int width = 480;
-		public static int height = 360;
-	}
+public class BitmapUtils {
+	public static int longSide = 360;
+	public static int shortSide = 180;
 
 	public static Bitmap decodeStreamScaledDown(InputStream stream, int reqWidth, int reqHeight) {
-		BitmapFactory.Options options = new BitmapFactory.Options();
 		byte[] data = new byte[0];
 		try {
 			data = IOUtils.toByteArray(stream);
@@ -56,9 +29,11 @@ public class BitmapWorkUtils {
 			e.printStackTrace();
 		}
 
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeByteArray(data, 0, data.length, options);
-
+		
 		options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 		options.inJustDecodeBounds = false;
 
@@ -76,7 +51,7 @@ public class BitmapWorkUtils {
 
 		return BitmapFactory.decodeFile(path, options);
 	}
-
+	
 	public static String saveBitmapAndGetPath(String imagePath, Bitmap bitmap) {
 		String tempPath = "tempImagePath";
 		String newPath = "";
@@ -90,8 +65,6 @@ public class BitmapWorkUtils {
 			fos.close();
 
 			newPath = GlobalApplication.getInstance().getApplicationContext().getFileStreamPath(tempPath).getAbsolutePath();
-			Log.i("bitmap scaler", "scaled down to : " + newPath);
-
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -112,35 +85,8 @@ public class BitmapWorkUtils {
 
 			inSampleSize = (heightRatio < widthRatio) ? heightRatio : widthRatio;
 		}
-		Log.i("bitmap util", "scale factor : " + inSampleSize);
+
 		return inSampleSize;
-	}
-
-	public static Bitmap cropCircularView(Bitmap bitmap) {
-		if (bitmap == null)
-			return null;
-
-		Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_8888);
-		Canvas canvas = new Canvas(output);
-		float radius;
-
-		if (bitmap.getWidth() > bitmap.getHeight())
-			radius = bitmap.getHeight() / 2;
-		else
-			radius = bitmap.getWidth() / 2;
-
-		final int color = 0xff424242;
-		final Paint paint = new Paint();
-		final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-
-		paint.setAntiAlias(true);
-		canvas.drawARGB(0, 0, 0, 0);
-		paint.setColor(color);
-		canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, radius, paint);
-		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-		canvas.drawBitmap(bitmap, rect, rect, paint);
-
-		return output;
 	}
 
 	public static Bitmap fixOrientation(String imagePath, Bitmap result) {

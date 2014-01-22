@@ -1,4 +1,4 @@
-package com.flag.utils;
+package com.flag.app;
 
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;

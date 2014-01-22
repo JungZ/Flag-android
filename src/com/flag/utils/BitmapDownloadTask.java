@@ -9,15 +9,17 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.flag.app.BitmapCache;
+
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
 
-public class BitmapUrlLoadTask extends AsyncTask<String, Void, Bitmap> {
+public class BitmapDownloadTask extends AsyncTask<String, Void, Bitmap> {
 	private final WeakReference<ImageView> imageViewReference;
 
-	public BitmapUrlLoadTask(ImageView imageView) {
+	public BitmapDownloadTask(ImageView imageView) {
 		imageViewReference = new WeakReference<ImageView>(imageView);
 	}
 
@@ -40,7 +42,6 @@ public class BitmapUrlLoadTask extends AsyncTask<String, Void, Bitmap> {
 		final HttpGet getRequest = new HttpGet(url);
 
 		try {
-
 			HttpResponse response = client.execute(getRequest);
 
 			// check 200 OK for success
@@ -61,8 +62,7 @@ public class BitmapUrlLoadTask extends AsyncTask<String, Void, Bitmap> {
 
 					// decoding stream data back into image Bitmap that android
 					// understands
-					final Bitmap bitmap = BitmapWorkUtils.decodeStreamScaledDown(inputStream, BitmapWorkUtils.PreviewParams.width,
-							BitmapWorkUtils.ThumnailParams.height);
+					final Bitmap bitmap = BitmapUtils.decodeStreamScaledDown(inputStream, BitmapUtils.longSide, BitmapUtils.shortSide);
 					BitmapCache.addBitmapItem(url, bitmap);
 
 					return bitmap;

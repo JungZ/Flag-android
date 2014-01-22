@@ -4,10 +4,9 @@ import android.app.Application;
 
 public class GlobalApplication extends Application {
 	private static GlobalApplication instance = null;
-
+	
 	@Override
 	public void onCreate() {
-		super.onCreate();
 		initGlobalApplication();
 	}
 

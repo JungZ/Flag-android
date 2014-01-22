@@ -3,7 +3,6 @@ package com.flag.activities;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import com.flag.utils.LocationUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
-import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
@@ -28,8 +26,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
-public class MapActivity extends Activity implements OnCameraChangeListener, ConnectionCallbacks, OnConnectionFailedListener, OnInfoWindowClickListener {
-	private LocationClient locationClient;
+public class MapActivity extends LocatedActivity implements OnCameraChangeListener, ConnectionCallbacks, OnConnectionFailedListener, OnInfoWindowClickListener {
 	private GoogleMap map;
 	private Map<Marker, Long> markerMap = new HashMap<Marker, Long>();
 	private LatLng prePosition;
@@ -39,16 +36,7 @@ public class MapActivity extends Activity implements OnCameraChangeListener, Con
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
 
-		locationClient = new LocationClient(this, this, this);
-		locationClient.connect();
-		
 		setUpMap();
-	}
-
-	@Override
-	protected void onDestroy() {
-		locationClient.disconnect();
-		super.onDestroy();
 	}
 
 	private void setUpMap() {
@@ -66,13 +54,15 @@ public class MapActivity extends Activity implements OnCameraChangeListener, Con
 
 	@Override
 	public void onConnected(Bundle data) {
-		getCurrentLocation();
+		super.onConnected(data);
+		initializeLocation();
 	}
 
-	private void getCurrentLocation() {
-		Location location = locationClient.getLastLocation();
+	private void initializeLocation() {
+		Location location = getLastLocation();
 		if (location == null)
 			return;
+		
 		setCenter(location.getLatitude(), location.getLongitude());
 	}
 
