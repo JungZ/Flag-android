@@ -3,6 +3,7 @@ package com.flag.services.apis;
 import java.io.IOException;
 
 import com.flag.services.apis.flags.Flags;
+import com.flag.services.apis.items.Items;
 import com.flag.services.apis.shops.Shops;
 import com.flag.services.apis.users.Users;
 import com.google.api.client.googleapis.GoogleUtils;
@@ -51,6 +52,10 @@ public class FlagClient extends AbstractGoogleJsonClient {
 	
 	public Shops shops() {
 		return new Shops(this);
+	}
+
+	public Items items() {
+		return new Items(this);
 	}
 
 	public static final class Builder extends AbstractGoogleJsonClient.Builder {

@@ -1,19 +1,19 @@
-package com.flag.services.apis.flags;
+package com.flag.services.apis.items;
 
 import java.io.IOException;
 
-import com.flag.models.FlagCollection;
+import com.flag.models.ItemCollection;
 import com.flag.services.apis.FlagClient;
 import com.flag.services.apis.FlagRequest;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.util.Key;
 
-public class List extends FlagRequest<FlagCollection> {
-	private static final String REST_PATH = "flag_list";
+public class List extends FlagRequest<ItemCollection> {
+	private static final String REST_PATH = "item_list";
 
 	protected List(FlagClient client) {
-		super(client, "GET", REST_PATH, null, FlagCollection.class);
+		super(client, "GET", REST_PATH, null, ItemCollection.class);
 	}
 
 	@Override
@@ -62,25 +62,13 @@ public class List extends FlagRequest<FlagCollection> {
 	}
 
 	@Key
-	private double lat;
+	private Long shopId;
 
-	@Key
-	private double lon;
-
-	public double getLat() {
-		return lat;
+	public Long getShopId() {
+		return shopId;
 	}
 
-	public void setLat(double lat) {
-		this.lat = lat;
+	public void setShopId(Long shopId) {
+		this.shopId = shopId;
 	}
-
-	public double getLon() {
-		return lon;
-	}
-
-	public void setLon(double lon) {
-		this.lon = lon;
-	}
-
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp" >
+
+        <ImageView
+            android:id="@+id/image_item_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:scaleType="centerCrop" />
+        
+        <ImageView
+            android:id="@+id/image_item_badge"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_gravity="top|right"
+            android:scaleType="fitXY" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/text_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <TextView
+        android:id="@+id/text_item_description"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    
+    <Button
+        android:id="@+id/button_item_like_it"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/like_it" />
+</LinearLayout>

@@ -14,7 +14,7 @@ import com.flag.models.Shop;
 import com.flag.services.NetworkInter;
 import com.flag.services.ResponseHandler;
 import com.flag.utils.LocationUtils;
-import com.flag.utils.StringUtils;
+import com.flag.utils.ResourceUtils;
 import com.flag.utils.ToastUtils;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -63,7 +63,7 @@ public class ShopActivity extends LocatedSubCategoryActivity {
 		textDescription.setText(shop.getDescription());
 
 		Button buttonCheckIn = (Button) findViewById(R.id.button_shop_check_in);
-		buttonCheckIn.setText(StringUtils.getString(R.string.check_in) + " " + shop.getReward1());
+		buttonCheckIn.setText(ResourceUtils.getString(R.string.check_in) + " " + shop.getReward1());
 	}
 
 	public void checkIn(View view) {

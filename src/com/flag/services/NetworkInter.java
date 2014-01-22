@@ -21,6 +21,15 @@ public class NetworkInter {
 		client = builder.build();
 	}
 	
+	public static void getImage(ImageView imageView, String url) {
+		Bitmap bitmap = BitmapCache.getBitmapItem(url);
+		
+		if (bitmap != null)
+			imageView.setImageBitmap(bitmap);
+		else
+			new BitmapDownloadTask(imageView).execute(url);
+	}
+	
 	public static <T> void insertUser(ResponseHandler<T> handler, final User user) {
 		ThreadManager.execute(new Work<T>() {
 
@@ -68,14 +77,17 @@ public class NetworkInter {
 			
 		}, handler);
 	}
-	
-	public static void getImage(ImageView imageView, String url) {
-		Bitmap bitmap = BitmapCache.getBitmapItem(url);
-		
-		if (bitmap != null)
-			imageView.setImageBitmap(bitmap);
-		else
-			new BitmapDownloadTask(imageView).execute(url);
+
+	public static <T> void itemList(ResponseHandler<T> handler, final long shopId) {
+		ThreadManager.execute(new Work<T>() {
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public T work() throws IOException {
+				return (T) client.items().list(shopId).execute();
+			}
+			
+		}, handler);
 	}
 
 }
