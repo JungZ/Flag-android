@@ -13,10 +13,7 @@ public class User extends GenericJson {
 	private String email;
 
 	@Key
-	private String password;
-
-	@Key
-	private String phone;
+	private int reward;
 
 	public Long getId() {
 		return id;
@@ -34,19 +31,11 @@ public class User extends GenericJson {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
+	public int getReward() {
+		return reward;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setReward(int reward) {
+		this.reward = reward;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -18,11 +19,17 @@ import com.flag.utils.ResourceUtils;
 
 public class ItemAdapter extends BaseAdapter {
 	private Context context;
+	private ItemScanInter itemScanInter;
 	private List<Item> items;
+
+	public interface ItemScanInter {
+		public abstract void scanItem();
+	}
 
 	public ItemAdapter(Context context, List<Item> items) {
 		super();
 		this.context = context;
+		this.itemScanInter = (ItemScanInter) context;
 		this.items = items;
 	}
 
@@ -61,8 +68,15 @@ public class ItemAdapter extends BaseAdapter {
 
 		Button buttonLikeIt = (Button) view.findViewById(R.id.button_item_like_it);
 		buttonLikeIt.setText(ResourceUtils.getString(R.string.like_it) + " " + item.getReward());
+		buttonLikeIt.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				itemScanInter.scanItem();
+			}
+			
+		});
 
 		return view;
 	}
-
 }

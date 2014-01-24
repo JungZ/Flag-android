@@ -1,29 +1,15 @@
 package com.flag.services.apis.users;
 
-import java.io.IOException;
-
 import com.flag.models.User;
+import com.flag.models.UserForm;
 import com.flag.services.apis.FlagClient;
 import com.flag.services.apis.FlagRequest;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpResponse;
-import com.google.api.client.util.Key;
 
 public class Get extends FlagRequest<User> {
-	private static final String REST_PATH = "user";
+	private static final String REST_PATH = "old_user";
 
-	protected Get(FlagClient client) {
-		super(client, "GET", REST_PATH, null, User.class);
-	}
-
-	@Override
-	public HttpResponse executeUsingHead() throws IOException {
-		return super.executeUsingHead();
-	}
-
-	@Override
-	public HttpRequest buildHttpRequestUsingHead() throws IOException {
-		return super.buildHttpRequestUsingHead();
+	protected Get(FlagClient client, UserForm userForm) {
+		super(client, "POST", REST_PATH, userForm, User.class);
 	}
 
 	@Override
@@ -59,16 +45,5 @@ public class Get extends FlagRequest<User> {
 	@Override
 	public Get setUserIp(String userIp) {
 		return (Get) super.setUserIp(userIp);
-	}
-
-	@Key
-	private Long id;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 }

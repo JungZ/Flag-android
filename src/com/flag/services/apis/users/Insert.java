@@ -1,14 +1,15 @@
 package com.flag.services.apis.users;
 
 import com.flag.models.User;
+import com.flag.models.UserForm;
 import com.flag.services.apis.FlagClient;
 import com.flag.services.apis.FlagRequest;
 
 public class Insert extends FlagRequest<User> {
-	private static final String REST_PATH = "user";
+	private static final String REST_PATH = "new_user";
 
-	protected Insert(FlagClient client, User user) {
-		super(client, "POST", REST_PATH, user, User.class);
+	protected Insert(FlagClient client, UserForm userForm) {
+		super(client, "POST", REST_PATH, userForm, User.class);
 	}
 
 	@Override

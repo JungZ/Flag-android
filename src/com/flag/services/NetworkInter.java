@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import com.flag.app.BitmapCache;
-import com.flag.models.User;
+import com.flag.models.UserForm;
 import com.flag.services.apis.FlagClient;
 import com.flag.utils.BitmapDownloadTask;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -30,25 +30,25 @@ public class NetworkInter {
 			new BitmapDownloadTask(imageView).execute(url);
 	}
 	
-	public static <T> void insertUser(ResponseHandler<T> handler, final User user) {
+	public static <T> void insertUser(ResponseHandler<T> handler, final UserForm userForm) {
 		ThreadManager.execute(new Work<T>() {
 
 			@SuppressWarnings("unchecked")
 			@Override
 			public T work() throws IOException {
-				return (T) client.users().insert(user);
+				return (T) client.users().insert(userForm).execute();
 			}
 			
 		}, handler);
 	}
 	
-	public static <T> void getUser(ResponseHandler<T> handler, final long id) {
+	public static <T> void getUser(ResponseHandler<T> handler, final UserForm userForm) {
 		ThreadManager.execute(new Work<T>() {
 
 			@SuppressWarnings("unchecked")
 			@Override
 			public T work() throws IOException {
-				return (T) client.users().get(id).execute();
+				return (T) client.users().get(userForm).execute();
 			}
 			
 		}, handler);
