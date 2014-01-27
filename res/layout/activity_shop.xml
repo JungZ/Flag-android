@@ -9,11 +9,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ShopActivity" >
 
-    <ImageView
-        android:id="@+id/image_shop_profile"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop" />
+        android:layout_height="150dp" >
+
+        <ImageView
+            android:id="@+id/image_shop_profile"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop" />
+
+        <ProgressBar
+            android:id="@+id/progressbar_shop_profile"
+            style="@android:style/Widget.ProgressBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/text_shop_description"

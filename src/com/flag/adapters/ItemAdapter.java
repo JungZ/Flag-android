@@ -55,7 +55,8 @@ public class ItemAdapter extends BaseAdapter {
 		View view = inflater.inflate(R.layout.adapted_item_layout, parent, false);
 
 		ImageView imageProfile = (ImageView) view.findViewById(R.id.image_item_profile);
-		NetworkInter.getImage(imageProfile, item.getImageUrl());
+		View loader = view.findViewById(R.id.progressbar_item_profile);
+		NetworkInter.getImage(loader, imageProfile, item.getImageUrl());
 
 		ImageView imageBadge = (ImageView) view.findViewById(R.id.image_item_badge);
 		imageBadge.setImageDrawable(ResourceUtils.getDrawable(R.drawable.common_signin_btn_icon_dark));

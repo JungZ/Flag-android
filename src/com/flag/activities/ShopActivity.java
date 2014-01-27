@@ -57,7 +57,8 @@ public class ShopActivity extends LocatedSubCategoryActivity {
 		getActionBar().setTitle(shop.getName());
 
 		ImageView imageProfile = (ImageView) findViewById(R.id.image_shop_profile);
-		NetworkInter.getImage(imageProfile, shop.getImageUrl());
+		View loader = findViewById(R.id.progressbar_shop_profile);
+		NetworkInter.getImage(loader, imageProfile, shop.getImageUrl());
 
 		TextView textDescription = (TextView) findViewById(R.id.text_shop_description);
 		textDescription.setText(shop.getDescription());

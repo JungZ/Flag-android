@@ -22,5 +22,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_join">JoinActivity</string>
     <string name="title_activity_loading">LoadingActivity</string>
+    <string name="rewards">rewards</string>
 
 </resources>

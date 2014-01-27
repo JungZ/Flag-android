@@ -9,17 +9,20 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.flag.app.BitmapCache;
-
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
+import com.flag.app.BitmapCache;
+
 public class BitmapDownloadTask extends AsyncTask<String, Void, Bitmap> {
+	private final WeakReference<View> loaderReference;
 	private final WeakReference<ImageView> imageViewReference;
 
-	public BitmapDownloadTask(ImageView imageView) {
+	public BitmapDownloadTask(View loader, ImageView imageView) {
+		loaderReference = new WeakReference<View>(loader);
 		imageViewReference = new WeakReference<ImageView>(imageView);
 	}
 
@@ -30,9 +33,12 @@ public class BitmapDownloadTask extends AsyncTask<String, Void, Bitmap> {
 
 	@Override
 	protected void onPostExecute(Bitmap result) {
+		final View loader = loaderReference.get();
 		final ImageView imageView = imageViewReference.get();
-		if (imageView != null && result != null)
+		if (loader != null && imageView != null && result != null) {
+			loader.setVisibility(View.GONE);
 			imageView.setImageBitmap(result);
+		}
 	}
 
 	private Bitmap downloadBitmap(String url) {

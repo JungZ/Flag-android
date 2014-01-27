@@ -6,7 +6,7 @@ import android.view.Menu;
 
 import com.flag.R;
 
-public class RewardActivity extends Activity {
+public class RewardsActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

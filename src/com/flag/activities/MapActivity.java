@@ -6,6 +6,8 @@ import java.util.Map;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.flag.R;
 import com.flag.models.Flag;
@@ -20,16 +22,19 @@ import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailed
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
-public class MapActivity extends LocatedActivity implements OnCameraChangeListener, ConnectionCallbacks, OnConnectionFailedListener, OnInfoWindowClickListener {
+public class MapActivity extends LocatedActivity implements OnCameraChangeListener, ConnectionCallbacks, OnConnectionFailedListener, OnMarkerClickListener,
+		OnMapClickListener {
 	private GoogleMap map;
-	private Map<Marker, Long> markerMap = new HashMap<Marker, Long>();
+	private Map<Marker, Flag> markerMap = new HashMap<Marker, Flag>();
 	private LatLng prePosition;
+	private Flag desgFlag;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +50,8 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 
 		map.setOnCameraChangeListener(this);
 		map.setMyLocationEnabled(true);
-		map.setOnInfoWindowClickListener(this);
+		map.setOnMarkerClickListener(this);
+		map.setOnMapClickListener(this);
 	}
 
 	private GoogleMap getMap() {
@@ -62,7 +68,7 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 		Location location = getLastLocation();
 		if (location == null)
 			return;
-		
+
 		setCenter(location.getLatitude(), location.getLongitude());
 	}
 
@@ -79,7 +85,7 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 		if (zoomFar())
 			return;
 
-		if (positionClose())
+		if (positionNear())
 			return;
 
 		NetworkInter.flagList(new ResponseHandler<FlagCollection>() {
@@ -101,16 +107,17 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 		return map.getCameraPosition().zoom < 14;
 	}
 
-	private boolean positionClose() {
+	private boolean positionNear() {
 		if (prePosition == null)
 			return false;
 
-		if (LocationUtils.isClose(prePosition.latitude, prePosition.longitude, map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude))
+		if (LocationUtils
+				.isNear(prePosition.latitude, prePosition.longitude, map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude))
 			return true;
 		else
 			return false;
 	}
-	
+
 	private void removeFlags() {
 		markerMap.clear();
 		map.clear();
@@ -118,7 +125,7 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 
 	private void showFlags(FlagCollection flagCol) {
 		for (Flag flag : flagCol.getFlags())
-			markerMap.put(map.addMarker(flag.toMarkerOptions()), flag.getShopId());
+			markerMap.put(map.addMarker(flag.toMarkerOptions()), flag);
 	}
 
 	private void savePosition() {
@@ -126,12 +133,46 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 	}
 
 	@Override
-	public void onInfoWindowClick(Marker marker) {
-		long shopId = markerMap.get(marker);
-		
+	public boolean onMarkerClick(Marker marker) {
+		map.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 16));
+		showDetails(marker);
+		return true;
+	}
+
+	private void showDetails(Marker marker) {
+		Flag flag = markerMap.get(marker);
+
+		View infoView = findViewById(R.id.linear_map_flaginfo);
+		infoView.setVisibility(View.VISIBLE);
+
+		TextView textName = (TextView) findViewById(R.id.text_map_flag_name);
+		textName.setText(flag.getShopName());
+
+		TextView textReward = (TextView) findViewById(R.id.text_map_flag_reward);
+		textReward.setText("" + flag.getReward1() + " ~ " + flag.getReward2());
+
+		desgFlag = flag;
+	}
+
+	@Override
+	public void onMapClick(LatLng latLng) {
+		hideDetails();
+	}
+
+	private void hideDetails() {
+		View infoView = findViewById(R.id.linear_map_flaginfo);
+		infoView.setVisibility(View.GONE);
+	}
+
+	public void goToShop(View view) {
 		Intent intent = new Intent(this, ShopActivity.class);
-		intent.putExtra(Shop.EXTRA_SHOP_ID, shopId);
-		intent.putExtra(Flag.EXTRA_LATLNG, marker.getPosition());
+		intent.putExtra(Shop.EXTRA_SHOP_ID, desgFlag.getShopId());
+		intent.putExtra(Flag.EXTRA_LATLNG, new LatLng(desgFlag.getLat(), desgFlag.getLon()));
+		startActivity(intent);
+	}
+
+	public void goToRewards(View view) {
+		Intent intent = new Intent(this, RewardsActivity.class);
 		startActivity(intent);
 	}
 

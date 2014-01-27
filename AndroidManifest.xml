@@ -76,7 +76,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.flag.activities.RewardActivity"
+            android:name="com.flag.activities.RewardsActivity"
             android:label="@string/title_activity_reward" >
         </activity>
         <activity
