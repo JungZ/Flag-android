@@ -87,6 +87,10 @@
             android:name="com.flag.activities.JoinActivity"
             android:label="@string/title_activity_join" >
         </activity>
+        <activity
+            android:name="com.flag.activities.LoadingActivity"
+            android:label="@string/title_activity_loading" >
+        </activity>
     </application>
 
 </manifest>

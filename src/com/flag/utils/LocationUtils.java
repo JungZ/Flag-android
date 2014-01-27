@@ -21,12 +21,4 @@ public class LocationUtils {
 	public static double distance(double latx, double lonx, double laty, double lony) {
 		return Math.sqrt((latx - laty) * (latx - laty) + (lonx - lony) * (lonx - lony));
 	}
-
-	public static double magnitude(double x, double y, double z) {
-		return Math.sqrt(x*x + y*y + z*z);
-	}
-
-	public static boolean closeValue(double magnitude, double shopSign) {
-		return magnitude < (shopSign * 1.1) && magnitude > (shopSign * 0.9);
-	}
 }
