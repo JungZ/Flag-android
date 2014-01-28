@@ -1,9 +1,10 @@
 package com.flag.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class LocatedSubCategoryActivity extends LocatedActivity {
+public class SubCategoryActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -1,7 +1,9 @@
 package com.flag.activities;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import android.content.Intent;
 import android.location.Location;
@@ -12,13 +14,11 @@ import android.widget.TextView;
 import com.flag.R;
 import com.flag.models.Flag;
 import com.flag.models.FlagCollection;
+import com.flag.models.FlagParcelable;
 import com.flag.models.Shop;
 import com.flag.services.NetworkInter;
 import com.flag.services.ResponseHandler;
 import com.flag.utils.LocationUtils;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
-import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
@@ -29,18 +29,18 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
-public class MapActivity extends LocatedActivity implements OnCameraChangeListener, ConnectionCallbacks, OnConnectionFailedListener, OnMarkerClickListener,
-		OnMapClickListener {
+public class MapActivity extends LocatedActivity implements OnCameraChangeListener, OnMarkerClickListener, OnMapClickListener {
+	public static final int FLAG_LIST_REQUEST = 0;
+	
 	private GoogleMap map;
 	private Map<Marker, Flag> markerMap = new HashMap<Marker, Flag>();
 	private LatLng prePosition;
-	private Flag desgFlag;
+	private Flag targetFlag;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
-
 		setUpMap();
 	}
 
@@ -136,7 +136,7 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 	public boolean onMarkerClick(Marker marker) {
 		map.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 16));
 		showDetails(marker);
-		return true;
+		return false;
 	}
 
 	private void showDetails(Marker marker) {
@@ -151,7 +151,7 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 		TextView textReward = (TextView) findViewById(R.id.text_map_flag_reward);
 		textReward.setText("" + flag.getReward1() + " ~ " + flag.getReward2());
 
-		desgFlag = flag;
+		targetFlag = flag;
 	}
 
 	@Override
@@ -163,24 +163,43 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 		View infoView = findViewById(R.id.linear_map_flaginfo);
 		infoView.setVisibility(View.GONE);
 	}
+	
+	public void goToFlagList(View view) {
+		Intent intent = new Intent(this, FlagListActivity.class);
+		intent.putParcelableArrayListExtra(FlagParcelable.EXTRA_FLAGPARCELABLE_LIST, getFlagParcelables());
+		startActivityForResult(intent, FLAG_LIST_REQUEST);
+	}
+
+	private ArrayList<FlagParcelable> getFlagParcelables() {
+		ArrayList<FlagParcelable> flagParcelables = new ArrayList<FlagParcelable>();
+		for (Flag flag : markerMap.values())
+			flagParcelables.add(flag.toParcelable());
+		return flagParcelables;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK && requestCode == FLAG_LIST_REQUEST) {
+			FlagParcelable flagParcelable = data.getParcelableExtra(FlagParcelable.EXTRA_FLAGPARCELABLE);
+			focusFlag(flagParcelable.toFlag());
+		}
+	}
+
+	private void focusFlag(Flag flag) {
+		for (Entry<Marker, Flag> entry : markerMap.entrySet())
+			if (entry.getValue().equals(flag))
+				onMarkerClick(entry.getKey());
+	}
 
 	public void goToShop(View view) {
 		Intent intent = new Intent(this, ShopActivity.class);
-		intent.putExtra(Shop.EXTRA_SHOP_ID, desgFlag.getShopId());
-		intent.putExtra(Flag.EXTRA_LATLNG, new LatLng(desgFlag.getLat(), desgFlag.getLon()));
+		intent.putExtra(Shop.EXTRA_SHOP_ID, targetFlag.getShopId());
+		intent.putExtra(Flag.EXTRA_LATLNG, new LatLng(targetFlag.getLat(), targetFlag.getLon()));
 		startActivity(intent);
 	}
 
 	public void goToRewards(View view) {
 		Intent intent = new Intent(this, RewardsActivity.class);
 		startActivity(intent);
-	}
-
-	@Override
-	public void onConnectionFailed(ConnectionResult result) {
-	}
-
-	@Override
-	public void onDisconnected() {
 	}
 }

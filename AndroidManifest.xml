@@ -41,14 +41,31 @@
             android:value="AIzaSyCQcUkrRmSvIpEDrswojd5NsGFgCGZV52o" />
 
         <activity
+            android:name="com.flag.activities.LoadingActivity"
+            android:label="@string/title_activity_loading" >
+        </activity>
+        <activity
+            android:name="com.flag.activities.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name="com.flag.activities.JoinActivity"
+            android:label="@string/title_activity_join" >
+        </activity>
+        <activity
             android:name="com.flag.activities.MapActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_activity_map"
             android:theme="@style/FullScreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.flag.activities.FlagListActivity"
+            android:label="@string/title_activity_flag_list"
+            android:noHistory="true" >
         </activity>
         <activity
             android:name="com.flag.activities.ShopActivity"
@@ -78,18 +95,6 @@
         <activity
             android:name="com.flag.activities.RewardsActivity"
             android:label="@string/title_activity_reward" >
-        </activity>
-        <activity
-            android:name="com.flag.activities.LoginActivity"
-            android:label="@string/title_activity_login" >
-        </activity>
-        <activity
-            android:name="com.flag.activities.JoinActivity"
-            android:label="@string/title_activity_join" >
-        </activity>
-        <activity
-            android:name="com.flag.activities.LoadingActivity"
-            android:label="@string/title_activity_loading" >
         </activity>
     </application>
 

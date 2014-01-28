@@ -35,6 +35,22 @@ public class Flag extends GenericJson {
 	@Key
 	private int reward2;
 
+	public Flag() {
+		super();
+	}
+	
+	public Flag(FlagParcelable flagParcelable) {
+		super();
+		id = flagParcelable.getId();
+		lat = flagParcelable.getLat();
+		lon = flagParcelable.getLon();
+		createdAt = flagParcelable.getCreatedAt();
+		shopId = flagParcelable.getShopId();
+		shopName = flagParcelable.getShopName();
+		reward1 = flagParcelable.getReward1();
+		reward2 = flagParcelable.getReward2();
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -107,6 +123,10 @@ public class Flag extends GenericJson {
 
 		return markerOptions;
 	}
+	
+	public FlagParcelable toParcelable() {
+		return new FlagParcelable(this);
+	}
 
 	@Override
 	public String toString() {
@@ -115,5 +135,18 @@ public class Flag extends GenericJson {
 		sb.append("id=" + id).append(", lat=" + lat).append(", lon=" + lon).append(", createdAt=" + createdAt).append(", shopId=" + shopId);
 
 		return sb.toString();
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		try {
+			Flag f = (Flag) o;
+			if (id.equals(f.getId()))
+				return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+		return false;
 	}
 }

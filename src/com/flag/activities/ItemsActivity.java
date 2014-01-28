@@ -15,8 +15,11 @@ import com.flag.models.Shop;
 import com.flag.services.NetworkInter;
 import com.flag.services.ResponseHandler;
 import com.flag.utils.ToastUtils;
+import com.google.zxing.client.android.CaptureActivity;
 
 public class ItemsActivity extends LocatedSubCategoryActivity implements ItemAdapter.ItemScanInter {
+	public static final int ITEM_SCAN_REQUEST = 0;
+
 	private long shopId;
 	private GridView gridItems;
 	private List<Item> items;
@@ -65,20 +68,17 @@ public class ItemsActivity extends LocatedSubCategoryActivity implements ItemAda
 
 	@Override
 	public void scanItem() {
-		Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-		intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-		startActivityForResult(intent, 0);
+		Intent intent = new Intent(this, CaptureActivity.class);
+		intent.setAction("com.google.zxing.client.android.SCAN");
+		intent.putExtra("SCAN_MODE", "BAR_CODE_MODE");
+		startActivityForResult(intent, ITEM_SCAN_REQUEST);
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		if (requestCode == 0) {
-
-			if (resultCode == RESULT_OK) {
-				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-				String contents = intent.getStringExtra("SCAN_RESULT");
-				ToastUtils.show(format + " / " + contents);
-			} else if (resultCode == RESULT_CANCELED) {
-			}
+		if (resultCode == RESULT_OK && requestCode == ITEM_SCAN_REQUEST) {
+			String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+			String contents = intent.getStringExtra("SCAN_RESULT");
+			ToastUtils.show(format + " / " + contents);
 		}
 	}
 }

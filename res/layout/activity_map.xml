@@ -26,9 +26,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|left"
-        android:layout_marginBottom="20dp"
         android:onClick="goToRewards"
         android:text="@string/rewards" />
+    
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:layout_marginTop="48dp"
+        android:onClick="goToFlagList"
+        android:text="@string/list" />
 
     <LinearLayout
         android:id="@+id/linear_map_flaginfo"
