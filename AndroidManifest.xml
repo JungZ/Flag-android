@@ -42,7 +42,13 @@
 
         <activity
             android:name="com.flag.activities.LoadingActivity"
-            android:label="@string/title_activity_loading" >
+            android:label="@string/title_activity_loading"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.flag.activities.LoginActivity"
@@ -56,11 +62,6 @@
             android:name="com.flag.activities.MapActivity"
             android:label="@string/title_activity_map"
             android:theme="@style/FullScreenTheme" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.flag.activities.FlagListActivity"
@@ -78,6 +79,7 @@
         <activity
             android:name="com.google.zxing.client.android.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:noHistory="true"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" >

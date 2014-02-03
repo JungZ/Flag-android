@@ -9,8 +9,61 @@
     tools:context=".JoinActivity" >
 
     <TextView
+        android:id="@+id/label_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignBaseline="@+id/enter_email"
+        android:text="@string/label_email" />
+
+    <EditText
+        android:id="@+id/enter_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/enter_pwcheck"
+        android:layout_toRightOf="@+id/label_email"
+        android:hint="@string/sample_email"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/label_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/enter_pw"
+        android:layout_below="@+id/label_email"
+        android:text="@string/label_pw" />
+
+    <EditText
+        android:id="@+id/enter_pw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/enter_pwcheck"
+        android:layout_below="@+id/enter_email"
+        android:layout_toRightOf="@+id/label_pw"
+        android:hint="@string/sample_pw"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/label_pwcheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/enter_pwcheck"
+        android:layout_below="@+id/label_pw"
+        android:text="@string/label_pwcheck" />
+
+    <EditText
+        android:id="@+id/enter_pwcheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enter_pw"
+        android:layout_toRightOf="@+id/label_pwcheck"
+        android:hint="@string/sample_pw"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btnjoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enter_pwcheck"
+        android:hint="@string/btnjoin" />
 
 </RelativeLayout>

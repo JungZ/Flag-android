@@ -8,9 +8,55 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity" >
 
-    <TextView
+	<TextView
+        android:id="@+id/label_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/label_email"
+        android:layout_alignBaseline="@+id/enter_email"
+        />
+
+ 	<EditText
+ 	    android:id="@+id/enter_email"
+ 	    android:layout_width="match_parent"
+ 	    android:layout_height="wrap_content"
+ 	    android:layout_toRightOf="@+id/label_email"
+ 	    android:layout_alignLeft="@+id/enter_pw"
+ 	    android:hint="@string/sample_email"
+ 	    android:inputType="textEmailAddress"
+ 	    />
+
+ 	<TextView
+        android:id="@+id/label_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/label_email"
+        android:text="@string/label_pw"
+        android:layout_alignBaseline="@+id/enter_pw"
+        />
+ 	 	
+    <EditText android:id="@+id/enter_pw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/sample_pw"
+        android:layout_below="@+id/enter_email"
+        android:layout_toRightOf="@+id/label_pw"
+        android:inputType="textPassword"
+        />
+    
+    <Button android:id="@+id/btnlogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/btnlogin"
+        android:layout_below="@+id/enter_pw"
+        />
+    
+    <Button android:id="@+id/btnNewAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/btnNewAccount"
+        android:layout_below="@+id/btnlogin"
+        />
+    
 
 </RelativeLayout>

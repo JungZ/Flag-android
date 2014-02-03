@@ -19,11 +19,21 @@
 
     <!-- Common String -->
     <string name="empty"></string>
+    <string name="please_wait">please wait</string>
     <string name="rewards">rewards</string>
     <string name="list">list</string>
     <string name="check_in">Check in</string>
     <string name="go_to_items">Go to Items</string>
     <string name="like_it">Like it</string>
     <string name="hello_world">Hello world!</string>
+    
+    <string name="sample_email">flag@tankers.com</string>
+    <string name="label_email">email</string>
+    <string name="sample_pw">password</string>
+    <string name="label_pw">password</string>
+    <string name="label_pwcheck">check password</string>
+    <string name="btnjoin">JOIN</string>
+    <string name="btnlogin">LOGIN</string>
+    <string name="btnNewAccount">Create new account</string>
 
 </resources>
