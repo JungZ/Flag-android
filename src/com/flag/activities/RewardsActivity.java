@@ -1,12 +1,11 @@
 package com.flag.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 
 import com.flag.R;
 
-public class RewardsActivity extends Activity {
+public class RewardsActivity extends SubCategoryActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +15,6 @@ public class RewardsActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.reward, menu);
 		return true;
 	}

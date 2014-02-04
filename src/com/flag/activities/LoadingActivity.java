@@ -7,9 +7,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Menu;
 
 import com.flag.R;
+import com.flag.app.LocalUser;
+import com.flag.models.RetainForm;
+import com.flag.models.User;
+import com.flag.services.NetworkInter;
+import com.flag.services.ResponseHandler;
 
 @SuppressLint("HandlerLeak")
 public class LoadingActivity extends Activity {
@@ -28,8 +32,7 @@ public class LoadingActivity extends Activity {
 					startActivity(new Intent(LoadingActivity.this, LoginActivity.class));
 					finish();
 				} else {
-					startActivity(new Intent(LoadingActivity.this, MapActivity.class));
-					finish();
+					retainUser(id);
 				}
 			}
 		};
@@ -38,11 +41,16 @@ public class LoadingActivity extends Activity {
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.loading, menu);
-		return true;
-	}
+	private void retainUser(long id) {
+		NetworkInter.retainUser(new ResponseHandler<User>() {
 
+			@Override
+			protected void onResponse(User response) {
+				LocalUser.setUser(response);
+				startActivity(new Intent(LoadingActivity.this, MapActivity.class));
+				finish();
+			}
+			
+		}, new RetainForm(id));
+	}
 }

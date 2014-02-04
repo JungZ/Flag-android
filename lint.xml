@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="ContentDescription" severity="ignore" />
+    <issue id="ExportedService">
+        <ignore path="AndroidManifest.xml" />
+    </issue>
     <issue id="MissingPrefix">
         <ignore path="res/layout/activity_map.xml" />
     </issue>

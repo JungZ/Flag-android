@@ -1,4 +1,4 @@
-package com.flag.utils;
+package com.flag.services;
 
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
@@ -15,7 +15,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.flag.app.BitmapCache;
+import com.flag.app.Cache;
+import com.flag.utils.BitmapUtils;
 
 public class BitmapDownloadTask extends AsyncTask<String, Void, Bitmap> {
 	private final WeakReference<View> loaderReference;
@@ -69,7 +70,7 @@ public class BitmapDownloadTask extends AsyncTask<String, Void, Bitmap> {
 					// decoding stream data back into image Bitmap that android
 					// understands
 					final Bitmap bitmap = BitmapUtils.decodeStreamScaledDown(inputStream, BitmapUtils.longSide, BitmapUtils.shortSide);
-					BitmapCache.addBitmapItem(url, bitmap);
+					Cache.addBitmapItem(url, bitmap);
 
 					return bitmap;
 				} finally {

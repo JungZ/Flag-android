@@ -6,10 +6,10 @@ import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.flag.app.BitmapCache;
+import com.flag.app.Cache;
+import com.flag.models.RetainForm;
 import com.flag.models.UserForm;
 import com.flag.services.apis.FlagClient;
-import com.flag.utils.BitmapDownloadTask;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.gson.GsonFactory;
 
@@ -23,7 +23,7 @@ public class NetworkInter {
 	}
 
 	public static void getImage(View loader, ImageView imageView, String url) {
-		Bitmap bitmap = BitmapCache.getBitmapItem(url);
+		Bitmap bitmap = Cache.getBitmapItem(url);
 
 		if (bitmap != null) {
 			loader.setVisibility(View.GONE);
@@ -53,6 +53,18 @@ public class NetworkInter {
 				return (T) client.users().get(userForm).execute();
 			}
 
+		}, handler);
+	}
+
+	public static <T> void retainUser(ResponseHandler<T> handler, final RetainForm retainForm) {
+		ThreadManager.execute(new Work<T>() {
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public T work() throws IOException {
+				return (T) client.users().retain(retainForm).execute();
+			}
+			
 		}, handler);
 	}
 
@@ -91,5 +103,4 @@ public class NetworkInter {
 
 		}, handler);
 	}
-
 }

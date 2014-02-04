@@ -2,6 +2,7 @@ package com.flag.services.apis.users;
 
 import java.io.IOException;
 
+import com.flag.models.RetainForm;
 import com.flag.models.UserForm;
 import com.flag.services.apis.FlagClient;
 
@@ -23,5 +24,11 @@ public class Users {
 		Get get = new Get(client, userForm);
 		client.initialize(get);
 		return get;
+	}
+	
+	public Retain retain(RetainForm retainForm) throws IOException {
+		Retain retain = new Retain(client, retainForm);
+		client.initialize(retain);
+		return retain;
 	}
 }

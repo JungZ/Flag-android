@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.flag.R;
+import com.flag.app.LocalUser;
 import com.flag.models.Flag;
 import com.flag.models.FlagCollection;
 import com.flag.models.FlagParcelable;
@@ -43,7 +45,13 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 		setContentView(R.layout.activity_map);
 		setUpMap();
 	}
-
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		setUpInfo();
+	}
+	
 	private void setUpMap() {
 		if (map == null)
 			map = getMap();
@@ -56,6 +64,11 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 
 	private GoogleMap getMap() {
 		return ((MapFragment) getFragmentManager().findFragmentById(R.id.fragment_map_map)).getMap();
+	}
+
+	private void setUpInfo() {
+		Button buttonRewards = (Button) findViewById(R.id.button_map_rewards);
+		buttonRewards.setText("" + LocalUser.getUser().getReward());
 	}
 
 	@Override
@@ -136,7 +149,7 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 	public boolean onMarkerClick(Marker marker) {
 		map.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 16));
 		showDetails(marker);
-		return false;
+		return true;
 	}
 
 	private void showDetails(Marker marker) {
@@ -194,7 +207,6 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 	public void goToShop(View view) {
 		Intent intent = new Intent(this, ShopActivity.class);
 		intent.putExtra(Shop.EXTRA_SHOP_ID, targetFlag.getShopId());
-		intent.putExtra(Flag.EXTRA_LATLNG, new LatLng(targetFlag.getLat(), targetFlag.getLon()));
 		startActivity(intent);
 	}
 
