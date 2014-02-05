@@ -80,13 +80,25 @@ public class NetworkInter {
 		}, handler);
 	}
 
-	public static <T> void getShop(ResponseHandler<T> handler, final long id) {
+	public static <T> void getShop(ResponseHandler<T> handler, final long userId, final long id) {
 		ThreadManager.execute(new Work<T>() {
 
 			@SuppressWarnings("unchecked")
 			@Override
 			public T work() throws IOException {
-				return (T) client.shops().get(id).execute();
+				return (T) client.shops().get(userId, id).execute();
+			}
+
+		}, handler);
+	}
+
+	public static <T> void getShopWithBeacon(ResponseHandler<T> handler, final long userId, final String beaconId) {
+		ThreadManager.execute(new Work<T>() {
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public T work() throws IOException {
+				return (T) client.shops().beacon(userId, beaconId).execute();
 			}
 
 		}, handler);

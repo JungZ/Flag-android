@@ -60,6 +60,17 @@ public class Get extends FlagRequest<Shop> {
 	public Get setUserIp(String userIp) {
 		return (Get) super.setUserIp(userIp);
 	}
+	
+	@Key
+	private Long userId;
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	@Key
 	private Long id;

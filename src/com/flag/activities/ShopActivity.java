@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flag.R;
+import com.flag.app.LocalUser;
 import com.flag.models.Shop;
 import com.flag.services.NetworkInter;
 import com.flag.services.ResponseHandler;
@@ -41,7 +42,7 @@ public class ShopActivity extends LocatedSubCategoryActivity {
 				showShop(response);
 			}
 
-		}, shopId);
+		}, LocalUser.getUser().getId(), shopId);
 	}
 
 	private void showShop(Shop shop) {
@@ -55,7 +56,7 @@ public class ShopActivity extends LocatedSubCategoryActivity {
 		textDescription.setText(shop.getDescription());
 
 		TextView textCheckIn = (TextView) findViewById(R.id.text_shop_check_in);
-		textCheckIn.setText(ResourceUtils.getString(R.string.check_in) + " " + shop.getReward1());
+		textCheckIn.setText(ResourceUtils.getString(R.string.check_in) + " " + shop.getReward());
 	}
 
 	public void goToItems(View view) {

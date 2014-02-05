@@ -17,6 +17,6 @@ public class CheckInUtils {
 
 	private static void getShopWithBeaconId(String beaconId) {
 		// TODO Auto-generated method stub
-
+		
 	}
 }

@@ -24,14 +24,11 @@ public class Shop extends GenericJson {
 	private String description;
 
 	@Key
-	private int reward1;
+	private int reward;
 
 	@Key
-	private int reward2;
+	private boolean checkedIn;
 	
-	@Key
-	private int sign;
-
 	public Long getId() {
 		return id;
 	}
@@ -72,27 +69,19 @@ public class Shop extends GenericJson {
 		this.description = description;
 	}
 
-	public int getReward1() {
-		return reward1;
+	public int getReward() {
+		return reward;
 	}
 
-	public void setReward1(int reward1) {
-		this.reward1 = reward1;
+	public void setReward(int reward) {
+		this.reward = reward;
 	}
 
-	public int getReward2() {
-		return reward2;
+	public boolean isCheckedIn() {
+		return checkedIn;
 	}
 
-	public void setReward2(int reward2) {
-		this.reward2 = reward2;
-	}
-
-	public int getSign() {
-		return sign;
-	}
-
-	public void setSign(int sign) {
-		this.sign = sign;
+	public void setCheckedIn(boolean checkedIn) {
+		this.checkedIn = checkedIn;
 	}
 }
