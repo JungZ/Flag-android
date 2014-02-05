@@ -12,8 +12,9 @@ public class Items {
 		this.client = client;
 	}
 	
-	public List list(Long shopId) throws IOException {
+	public List list(Long userId, Long shopId) throws IOException {
 		List list = new List(client);
+		list.setUserId(userId);
 		list.setShopId(shopId);
 		client.initialize(list);
 		return list;

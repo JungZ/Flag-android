@@ -60,9 +60,20 @@ public class List extends FlagRequest<ItemCollection> {
 	public List setUserIp(String userIp) {
 		return (List) super.setUserIp(userIp);
 	}
+	
+	@Key
+	private Long userId;
 
 	@Key
 	private Long shopId;
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public Long getShopId() {
 		return shopId;

@@ -27,7 +27,7 @@ public class Shop extends GenericJson {
 	private int reward;
 
 	@Key
-	private boolean checkedIn;
+	private boolean rewarded;
 	
 	public Long getId() {
 		return id;
@@ -77,11 +77,11 @@ public class Shop extends GenericJson {
 		this.reward = reward;
 	}
 
-	public boolean isCheckedIn() {
-		return checkedIn;
+	public boolean isRewarded() {
+		return rewarded;
 	}
 
-	public void setCheckedIn(boolean checkedIn) {
-		this.checkedIn = checkedIn;
+	public void setRewarded(boolean rewarded) {
+		this.rewarded = rewarded;
 	}
 }

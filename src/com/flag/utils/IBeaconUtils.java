@@ -75,6 +75,6 @@ public class IBeaconUtils implements IBeaconConsumer, RangeNotifier {
 	public void didRangeBeaconsInRegion(Collection<IBeacon> iBeacons, Region region) {
 		for (IBeacon iBeacon : iBeacons)
 			if (iBeacon.getAccuracy() < AT_DISTANCE)
-				CheckInUtils.checkIn(iBeacon.getProximityUuid());
+				RewardUtils.checkIn(iBeacon.getProximityUuid());
 	}
 }

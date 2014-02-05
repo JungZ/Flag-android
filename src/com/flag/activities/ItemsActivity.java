@@ -9,6 +9,7 @@ import android.widget.GridView;
 
 import com.flag.R;
 import com.flag.adapters.ItemAdapter;
+import com.flag.app.LocalUser;
 import com.flag.models.Item;
 import com.flag.models.ItemCollection;
 import com.flag.models.Shop;
@@ -59,7 +60,7 @@ public class ItemsActivity extends LocatedSubCategoryActivity implements ItemAda
 				refresh();
 			}
 
-		}, shopId);
+		}, LocalUser.getUser().getId(), shopId);
 	}
 
 	private void refresh() {

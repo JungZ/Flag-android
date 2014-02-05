@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.flag.app.Cache;
 import com.flag.models.RetainForm;
+import com.flag.models.Reward;
 import com.flag.models.UserForm;
 import com.flag.services.apis.FlagClient;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -104,15 +105,27 @@ public class NetworkInter {
 		}, handler);
 	}
 
-	public static <T> void itemList(ResponseHandler<T> handler, final long shopId) {
+	public static <T> void itemList(ResponseHandler<T> handler, final long userId, final long shopId) {
 		ThreadManager.execute(new Work<T>() {
 
 			@SuppressWarnings("unchecked")
 			@Override
 			public T work() throws IOException {
-				return (T) client.items().list(shopId).execute();
+				return (T) client.items().list(userId, shopId).execute();
 			}
 
+		}, handler);
+	}
+	
+	public static <T> void claimReward(ResponseHandler<T> handler, final Reward reward) {
+		ThreadManager.execute(new Work<T>() {
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public T work() throws IOException {
+				return (T) client.rewards().insert(reward);
+			}
+			
 		}, handler);
 	}
 }
