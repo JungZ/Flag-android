@@ -22,6 +22,7 @@ public class ItemsActivity extends LocatedSubCategoryActivity implements ItemAda
 	public static final int ITEM_SCAN_REQUEST = 0;
 
 	private long shopId;
+	private String shopName;
 	private GridView gridItems;
 	private List<Item> items;
 	private ItemAdapter itemAdapter;
@@ -31,13 +32,16 @@ public class ItemsActivity extends LocatedSubCategoryActivity implements ItemAda
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_items);
 
-		if (savedInstanceState == null)
+		if (savedInstanceState == null) {
 			shopId = getIntent().getLongExtra(Shop.EXTRA_SHOP_ID, 0);
+			shopName = getIntent().getStringExtra(Shop.EXTRA_SHOP_NAME);
+		}
+		
+		getActionBar().setTitle(shopName);
 
 		gridItems = (GridView) findViewById(R.id.grid_items_items);
 		items = new ArrayList<Item>();
 		itemAdapter = new ItemAdapter(this, items);
-
 		gridItems.setAdapter(itemAdapter);
 	}
 

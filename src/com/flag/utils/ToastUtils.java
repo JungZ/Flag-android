@@ -6,10 +6,10 @@ import com.flag.app.GlobalApplication;
 
 public class ToastUtils {
 	public static void show(int src) {
-		show(GlobalApplication.getInstance().getResources().getString(src));
+		show(ResourceUtils.getString(src));
 	}
 
 	public static void show(String msg) {
-		Toast.makeText(GlobalApplication.getInstance().getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+		Toast.makeText(GlobalApplication.getInstance().getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 	}
 }

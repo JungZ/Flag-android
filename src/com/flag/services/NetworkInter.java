@@ -69,13 +69,13 @@ public class NetworkInter {
 		}, handler);
 	}
 
-	public static <T> void flagList(ResponseHandler<T> handler, final double lat, final double lon) {
+	public static <T> void flagList(ResponseHandler<T> handler, final long userId, final double lat, final double lon) {
 		ThreadManager.execute(new Work<T>() {
 
 			@SuppressWarnings("unchecked")
 			@Override
 			public T work() throws IOException {
-				return (T) client.flags().list(lat, lon).execute();
+				return (T) client.flags().list(userId, lat, lon).execute();
 			}
 
 		}, handler);
@@ -123,7 +123,7 @@ public class NetworkInter {
 			@SuppressWarnings("unchecked")
 			@Override
 			public T work() throws IOException {
-				return (T) client.rewards().insert(reward);
+				return (T) client.rewards().insert(reward).execute();
 			}
 			
 		}, handler);

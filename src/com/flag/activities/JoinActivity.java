@@ -54,6 +54,7 @@ public class JoinActivity extends Activity implements OnClickListener {
 				NetworkInter.insertUser(new ResponseHandlerWithDialog<User>(DialogUtils.showWaitingDialog(this)) {
 					@Override
 					protected void onResponse(User response) {
+						super.onResponse(response);
 						if (response == null || response.getId() == 0)
 							return;
 						SharedPreferences prefs = getSharedPreferences("MyUser", MODE_PRIVATE);

@@ -20,7 +20,9 @@ import com.flag.models.FlagParcelable;
 import com.flag.models.Shop;
 import com.flag.services.NetworkInter;
 import com.flag.services.ResponseHandler;
+import com.flag.utils.IBeaconUtils;
 import com.flag.utils.LocationUtils;
+import com.flag.utils.ResourceUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
@@ -33,7 +35,7 @@ import com.google.android.gms.maps.model.Marker;
 
 public class MapActivity extends LocatedActivity implements OnCameraChangeListener, OnMarkerClickListener, OnMapClickListener {
 	public static final int FLAG_LIST_REQUEST = 0;
-	
+
 	private GoogleMap map;
 	private Map<Marker, Flag> markerMap = new HashMap<Marker, Flag>();
 	private LatLng prePosition;
@@ -44,14 +46,23 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
 		setUpMap();
+		IBeaconUtils.verifyBluetooth(this);
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		setUpInfo();
 	}
 	
+	@Override
+	public void onBackPressed() {
+		if (targetFlag != null)
+			hideDetails();
+		else
+			super.onBackPressed();
+	}
+
 	private void setUpMap() {
 		if (map == null)
 			map = getMap();
@@ -113,7 +124,7 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 				savePosition();
 			}
 
-		}, map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude);
+		}, LocalUser.getUser().getId(), map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude);
 	}
 
 	private boolean zoomFar() {
@@ -125,7 +136,7 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 			return false;
 
 		if (LocationUtils
-				.isNear(prePosition.latitude, prePosition.longitude, map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude))
+				.isClose(prePosition.latitude, prePosition.longitude, map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude))
 			return true;
 		else
 			return false;
@@ -162,7 +173,12 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 		textName.setText(flag.getShopName());
 
 		TextView textReward = (TextView) findViewById(R.id.text_map_flag_reward);
-		textReward.setText("" + flag.getReward1() + " ~ " + flag.getReward2());
+		textReward.setText(ResourceUtils.getString(R.string.reward_info_check_in) + " " + flag.getReward());
+		if (flag.isRewarded())
+			textReward.append(" V");
+
+		TextView textDesc = (TextView) findViewById(R.id.text_map_flag_description);
+		textDesc.setText(flag.getShopDescription());
 
 		targetFlag = flag;
 	}
@@ -175,8 +191,9 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 	private void hideDetails() {
 		View infoView = findViewById(R.id.linear_map_flaginfo);
 		infoView.setVisibility(View.GONE);
+		targetFlag = null;
 	}
-	
+
 	public void goToFlagList(View view) {
 		Intent intent = new Intent(this, FlagListActivity.class);
 		intent.putParcelableArrayListExtra(FlagParcelable.EXTRA_FLAGPARCELABLE_LIST, getFlagParcelables());
@@ -189,7 +206,7 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 			flagParcelables.add(flag.toParcelable());
 		return flagParcelables;
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK && requestCode == FLAG_LIST_REQUEST) {
@@ -204,9 +221,10 @@ public class MapActivity extends LocatedActivity implements OnCameraChangeListen
 				onMarkerClick(entry.getKey());
 	}
 
-	public void goToShop(View view) {
-		Intent intent = new Intent(this, ShopActivity.class);
+	public void goToItems(View view) {
+		Intent intent = new Intent(this, ItemsActivity.class);
 		intent.putExtra(Shop.EXTRA_SHOP_ID, targetFlag.getShopId());
+		intent.putExtra(Shop.EXTRA_SHOP_NAME, targetFlag.getShopName());
 		startActivity(intent);
 	}
 

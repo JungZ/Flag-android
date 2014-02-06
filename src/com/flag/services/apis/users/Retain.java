@@ -6,7 +6,7 @@ import com.flag.services.apis.FlagClient;
 import com.flag.services.apis.FlagRequest;
 
 public class Retain extends FlagRequest<User> {
-	private static final String REST_PATH = "user";
+	private static final String REST_PATH = "retain_user";
 
 	protected Retain(FlagClient client, RetainForm retainForm) {
 		super(client, "POST", REST_PATH, retainForm, User.class);

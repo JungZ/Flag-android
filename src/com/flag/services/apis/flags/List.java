@@ -10,7 +10,7 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.util.Key;
 
 public class List extends FlagRequest<FlagCollection> {
-	private static final String REST_PATH = "flag_list";
+	private static final String REST_PATH = "flag";
 
 	protected List(FlagClient client) {
 		super(client, "GET", REST_PATH, null, FlagCollection.class);
@@ -62,10 +62,21 @@ public class List extends FlagRequest<FlagCollection> {
 	}
 
 	@Key
+	private long userId;
+
+	@Key
 	private double lat;
 
 	@Key
 	private double lon;
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
 
 	public double getLat() {
 		return lat;

@@ -6,6 +6,7 @@ import com.google.api.client.util.Key;
 
 public class Shop extends GenericJson {
 	public static final String EXTRA_SHOP_ID = "com.flag.models.extra.shop.id";
+	public static final String EXTRA_SHOP_NAME = "com.flag.models.extra.shop.name";
 
 	@Key
 	@JsonString

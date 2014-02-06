@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.RemoteException;
 
+import com.flag.app.LocalUser;
 import com.radiusnetworks.ibeacon.IBeacon;
 import com.radiusnetworks.ibeacon.IBeaconConsumer;
 import com.radiusnetworks.ibeacon.IBeaconManager;
@@ -18,11 +19,12 @@ public class IBeaconUtils implements IBeaconConsumer, RangeNotifier {
 	private static final double AT_DISTANCE = 0.5;
 	
 	private Context context;
+	private RewardUtils rewardUtils;
 	private IBeaconManager iBeaconManager;
 
-	public IBeaconUtils(Context context) {
+	public IBeaconUtils(Context context, RewardUtils rewardUtils) {
 		this.context = context;
-		verifyBluetooth(context);
+		this.rewardUtils = rewardUtils;
 		iBeaconManager = IBeaconManager.getInstanceForApplication(context);
 		iBeaconManager.bind(this);
 	}
@@ -74,7 +76,7 @@ public class IBeaconUtils implements IBeaconConsumer, RangeNotifier {
 	@Override
 	public void didRangeBeaconsInRegion(Collection<IBeacon> iBeacons, Region region) {
 		for (IBeacon iBeacon : iBeacons)
-			if (iBeacon.getAccuracy() < AT_DISTANCE)
-				RewardUtils.checkIn(iBeacon.getProximityUuid());
+			if (iBeacon.getAccuracy() < AT_DISTANCE && LocalUser.getUser() != null)
+				rewardUtils.checkIn(iBeacon.getProximityUuid());
 	}
 }

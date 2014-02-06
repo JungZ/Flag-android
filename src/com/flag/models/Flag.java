@@ -30,15 +30,18 @@ public class Flag extends GenericJson {
 	private String shopName;
 
 	@Key
-	private int reward1;
+	private String shopDescription;
 
 	@Key
-	private int reward2;
+	private int reward;
+
+	@Key
+	private boolean rewarded;
 
 	public Flag() {
 		super();
 	}
-	
+
 	public Flag(FlagParcelable flagParcelable) {
 		super();
 		id = flagParcelable.getId();
@@ -47,14 +50,15 @@ public class Flag extends GenericJson {
 		createdAt = flagParcelable.getCreatedAt();
 		shopId = flagParcelable.getShopId();
 		shopName = flagParcelable.getShopName();
-		reward1 = flagParcelable.getReward1();
-		reward2 = flagParcelable.getReward2();
+		shopDescription = flagParcelable.getShopDescription();
+		reward = flagParcelable.getReward();
+		rewarded = flagParcelable.isRewarded();
 	}
 
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -99,20 +103,28 @@ public class Flag extends GenericJson {
 		this.shopName = shopName;
 	}
 
-	public int getReward1() {
-		return reward1;
+	public String getShopDescription() {
+		return shopDescription;
 	}
 
-	public void setReward1(int reward1) {
-		this.reward1 = reward1;
+	public void setShopDescription(String shopDescription) {
+		this.shopDescription = shopDescription;
 	}
 
-	public int getReward2() {
-		return reward2;
+	public int getReward() {
+		return reward;
 	}
 
-	public void setReward2(int reward2) {
-		this.reward2 = reward2;
+	public void setReward(int reward) {
+		this.reward = reward;
+	}
+
+	public boolean isRewarded() {
+		return rewarded;
+	}
+
+	public void setRewarded(boolean rewarded) {
+		this.rewarded = rewarded;
 	}
 
 	public MarkerOptions toMarkerOptions() {
@@ -123,7 +135,7 @@ public class Flag extends GenericJson {
 
 		return markerOptions;
 	}
-	
+
 	public FlagParcelable toParcelable() {
 		return new FlagParcelable(this);
 	}
@@ -136,7 +148,7 @@ public class Flag extends GenericJson {
 
 		return sb.toString();
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		try {
@@ -146,7 +158,7 @@ public class Flag extends GenericJson {
 		} catch (Exception e) {
 			return false;
 		}
-		
+
 		return false;
 	}
 }

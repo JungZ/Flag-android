@@ -12,8 +12,9 @@ public class Flags {
 		this.client = client;
 	}
 
-	public List list(double lat, double lon) throws IOException {
+	public List list(long userId, double lat, double lon) throws IOException {
 		List list = new List(client);
+		list.setUserId(userId);
 		list.setLat(lat);
 		list.setLon(lon);
 		client.initialize(list);

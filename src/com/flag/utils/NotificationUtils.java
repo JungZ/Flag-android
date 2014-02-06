@@ -10,9 +10,8 @@ public class NotificationUtils {
 		
 	}
 
-	public static void notifyReward(Reward reward) {
-		// TODO Auto-generated method stub
-		
+	public static void notifyReward(Reward reward, String targetName) {
+		ToastUtils.show(targetName + " rewarded with " + reward.getReward() + "!");
 	}
 
 }

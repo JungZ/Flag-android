@@ -32,6 +32,7 @@ public class ThreadManager<T> implements Runnable {
 			handler.sendMessage(m);
 		} catch (IOException e) {
 			e.printStackTrace();
+			handler.sendEmptyMessage(0);
 		}
 	}
 }

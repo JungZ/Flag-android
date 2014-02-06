@@ -24,21 +24,29 @@ public class LoadingActivity extends Activity {
 		setContentView(R.layout.activity_loading);
 
 		Handler handler = new Handler() {
+
 			@Override
 			public void handleMessage(Message msg) {
-				SharedPreferences prefs = getSharedPreferences("MyUser", MODE_PRIVATE);
-				long id = prefs.getLong("id", 0);
-				if (id == 0) {
-					startActivity(new Intent(LoadingActivity.this, LoginActivity.class));
-					finish();
-				} else {
-					retainUser(id);
+				if (LocalUser.getUser() != null) {
+					goToMap();
+					return;
 				}
+
+				long id = getSavedId();
+				if (id == 0)
+					goToLogin();
+				else
+					retainUser(id);
 			}
+
 		};
 
 		handler.sendEmptyMessageDelayed(0, 1000);
+	}
 
+	private long getSavedId() {
+		SharedPreferences prefs = getSharedPreferences("MyUser", MODE_PRIVATE);
+		return prefs.getLong("id", 0);
 	}
 
 	private void retainUser(long id) {
@@ -46,11 +54,25 @@ public class LoadingActivity extends Activity {
 
 			@Override
 			protected void onResponse(User response) {
+				if (response == null) {
+					goToLogin();
+					return;
+				}
+
 				LocalUser.setUser(response);
-				startActivity(new Intent(LoadingActivity.this, MapActivity.class));
-				finish();
+				goToMap();
 			}
-			
+
 		}, new RetainForm(id));
+	}
+
+	private void goToLogin() {
+		startActivity(new Intent(LoadingActivity.this, LoginActivity.class));
+		finish();
+	}
+
+	private void goToMap() {
+		startActivity(new Intent(LoadingActivity.this, MapActivity.class));
+		finish();
 	}
 }

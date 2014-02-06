@@ -84,24 +84,20 @@
         <activity
             android:name="com.flag.activities.MapActivity"
             android:label="@string/title_activity_map"
-            android:launchMode="singleInstance"
             android:theme="@style/FullScreenTheme" >
         </activity>
         <activity
             android:name="com.flag.activities.FlagListActivity"
             android:label="@string/title_activity_flag_list"
-            android:launchMode="singleInstance"
             android:noHistory="true" >
         </activity>
         <activity
             android:name="com.flag.activities.ShopActivity"
-            android:label="@string/title_activity_shop"
-            android:launchMode="singleInstance" >
+            android:label="@string/title_activity_shop" >
         </activity>
         <activity
             android:name="com.flag.activities.ItemsActivity"
-            android:label="@string/title_activity_items"
-            android:launchMode="singleInstance" >
+            android:label="@string/title_activity_items" >
         </activity>
         <activity
             android:name="com.google.zxing.client.android.CaptureActivity"

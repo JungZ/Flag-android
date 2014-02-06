@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.flag.R;
 import com.flag.models.Flag;
+import com.flag.utils.ResourceUtils;
 
 public class FlagAdapter extends BaseAdapter {
 	private Context context;
@@ -47,7 +48,9 @@ public class FlagAdapter extends BaseAdapter {
 		textName.setText(flag.getShopName());
 
 		TextView textReward = (TextView) view.findViewById(R.id.text_flag_reward);
-		textReward.setText("" + flag.getReward1() + " ~ " + flag.getReward2());
+		textReward.setText(ResourceUtils.getString(R.string.reward_info_check_in) + " " + flag.getReward());
+		if (flag.isRewarded())
+			textReward.append(" V");
 		
 		return view;
 	}

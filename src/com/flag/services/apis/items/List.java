@@ -10,7 +10,7 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.util.Key;
 
 public class List extends FlagRequest<ItemCollection> {
-	private static final String REST_PATH = "item_list";
+	private static final String REST_PATH = "item";
 
 	protected List(FlagClient client) {
 		super(client, "GET", REST_PATH, null, ItemCollection.class);

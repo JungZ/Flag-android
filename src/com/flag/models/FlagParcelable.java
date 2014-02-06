@@ -6,15 +6,16 @@ import android.os.Parcelable;
 public class FlagParcelable implements Parcelable {
 	public static final String EXTRA_FLAGPARCELABLE = "com.flag.models.extra.flagparcelable";
 	public static final String EXTRA_FLAGPARCELABLE_LIST = "com.flag.models.extra.flagparcelable.list";
-	
+
 	private long id;
 	private double lat;
 	private double lon;
 	private long createdAt;
 	private long shopId;
 	private String shopName;
-	private int reward1;
-	private int reward2;
+	private String shopDescription;
+	private int reward;
+	private boolean rewarded;
 
 	public FlagParcelable() {
 		super();
@@ -27,8 +28,9 @@ public class FlagParcelable implements Parcelable {
 		createdAt = flag.getCreatedAt();
 		shopId = flag.getShopId();
 		shopName = flag.getShopName();
-		reward1 = flag.getReward1();
-		reward2 = flag.getReward2();
+		shopDescription = flag.getShopDescription();
+		reward = flag.getReward();
+		rewarded = flag.isRewarded();
 	}
 
 	public long getId() {
@@ -79,22 +81,30 @@ public class FlagParcelable implements Parcelable {
 		this.shopName = shopName;
 	}
 
-	public int getReward1() {
-		return reward1;
+	public String getShopDescription() {
+		return shopDescription;
 	}
 
-	public void setReward1(int reward1) {
-		this.reward1 = reward1;
+	public void setShopDescription(String shopDescription) {
+		this.shopDescription = shopDescription;
 	}
 
-	public int getReward2() {
-		return reward2;
+	public int getReward() {
+		return reward;
 	}
 
-	public void setReward2(int reward2) {
-		this.reward2 = reward2;
+	public void setReward(int reward) {
+		this.reward = reward;
 	}
-	
+
+	public boolean isRewarded() {
+		return rewarded;
+	}
+
+	public void setRewarded(boolean rewarded) {
+		this.rewarded = rewarded;
+	}
+
 	public Flag toFlag() {
 		return new Flag(this);
 	}
@@ -125,8 +135,7 @@ public class FlagParcelable implements Parcelable {
 		dest.writeLong(createdAt);
 		dest.writeLong(shopId);
 		dest.writeString(shopName);
-		dest.writeInt(reward1);
-		dest.writeInt(reward2);
+		dest.writeInt(reward);
 	}
 
 	public FlagParcelable(Parcel source) {
@@ -136,7 +145,6 @@ public class FlagParcelable implements Parcelable {
 		createdAt = source.readLong();
 		shopId = Long.valueOf(source.readLong());
 		shopName = source.readString();
-		reward1 = source.readInt();
-		reward2 = source.readInt();
+		reward = source.readInt();
 	}
 }

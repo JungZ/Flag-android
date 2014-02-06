@@ -51,6 +51,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 				NetworkInter.getUser(new ResponseHandlerWithDialog<User>(DialogUtils.showWaitingDialog(this)) {
 					@Override
 					protected void onResponse(User response) {
+						super.onResponse(response);
 						if (response == null || response.getId() == 0) {
 							Toast.makeText(LoginActivity.this, "please enter a valid account", Toast.LENGTH_SHORT).show();
 							return;

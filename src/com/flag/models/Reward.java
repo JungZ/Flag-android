@@ -1,5 +1,7 @@
 package com.flag.models;
 
+import java.util.Date;
+
 import com.google.api.client.json.GenericJson;
 import com.google.api.client.util.Key;
 
@@ -19,6 +21,9 @@ public class Reward extends GenericJson {
 	@Key
 	private int reward;
 
+	@Key
+	private long createdAt;
+
 	public Reward() {
 		super();
 	}
@@ -29,6 +34,7 @@ public class Reward extends GenericJson {
 		this.targetId = targetId;
 		this.type = type;
 		this.reward = reward;
+		createdAt = new Date().getTime();
 	}
 
 	public Long getUserId() {
@@ -63,4 +69,11 @@ public class Reward extends GenericJson {
 		this.reward = reward;
 	}
 
+	public long getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(long createdAt) {
+		this.createdAt = createdAt;
+	}
 }
