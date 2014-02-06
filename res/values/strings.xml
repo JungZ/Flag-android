@@ -19,6 +19,8 @@
 
     <!-- Common String -->
     <string name="empty"></string>
+    <string name="ok">Sure why not</string>
+    <string name="no">No thanks</string>
     <string name="please_wait">please wait</string>
     <string name="rewards">rewards</string>
     <string name="list">list</string>

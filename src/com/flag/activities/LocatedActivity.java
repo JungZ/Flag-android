@@ -1,6 +1,5 @@
 package com.flag.activities;
 
-import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -9,7 +8,7 @@ import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallback
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationClient;
 
-public class LocatedActivity extends Activity implements ConnectionCallbacks, OnConnectionFailedListener {
+public class LocatedActivity extends MainActivity implements ConnectionCallbacks, OnConnectionFailedListener {
 	protected LocationClient locationClient;
 	protected boolean isConnected = false;
 

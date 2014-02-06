@@ -48,7 +48,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 				user0.setEmail(email);
 				user0.setPassword(pwEnc);
 
-				NetworkInter.getUser(new ResponseHandlerWithDialog<User>(DialogUtils.showWaitingDialog(this)) {
+				NetworkInter.getUser(new ResponseHandlerWithDialog<User>(DialogUtils.getWaitingDialog(this)) {
 					@Override
 					protected void onResponse(User response) {
 						super.onResponse(response);

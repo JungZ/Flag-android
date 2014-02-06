@@ -21,7 +21,7 @@ public class RewardUtils {
 	public void checkIn(String beaconId) {
 		if (isCachedItem(beaconId))
 			return;
-
+		
 		getShopWithBeacon(beaconId);
 		Cache.addStringItem(beaconId);
 	}
@@ -46,9 +46,10 @@ public class RewardUtils {
 				if (response == null)
 					return;
 
-				NotificationUtils.notifyShop(response);
 				if (!response.isRewarded())
 					claimReward(new Reward(LocalUser.getUser().getId(), response.getId(), Reward.TYPE_SHOP, response.getReward()), response.getName());
+				else
+					NotificationUtils.notifyShop(response);
 			}
 
 		}, LocalUser.getUser().getId(), beaconId);

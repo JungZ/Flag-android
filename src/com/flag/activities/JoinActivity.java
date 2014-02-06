@@ -51,7 +51,7 @@ public class JoinActivity extends Activity implements OnClickListener {
 				user0.setEmail(email);
 				user0.setPassword(pwEnc);
 
-				NetworkInter.insertUser(new ResponseHandlerWithDialog<User>(DialogUtils.showWaitingDialog(this)) {
+				NetworkInter.insertUser(new ResponseHandlerWithDialog<User>(DialogUtils.getWaitingDialog(this)) {
 					@Override
 					protected void onResponse(User response) {
 						super.onResponse(response);
