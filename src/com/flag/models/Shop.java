@@ -19,10 +19,10 @@ public class Shop extends GenericJson {
 	private String imageUrl;
 
 	@Key
-	private int type;
+	private String description;
 
 	@Key
-	private String description;
+	private int type;
 
 	@Key
 	private int reward;
@@ -54,20 +54,20 @@ public class Shop extends GenericJson {
 		this.imageUrl = imageUrl;
 	}
 
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	public int getReward() {

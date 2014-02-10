@@ -17,13 +17,16 @@ public class Item extends GenericJson {
 	private String name;
 
 	@Key
-	private String description;
-
-	@Key
 	private String imageUrl;
 
 	@Key
+	private String description;
+
+	@Key
 	private int reward;
+	
+	@Key
+	private boolean rewarded;
 
 	public Long getId() {
 		return id;
@@ -49,14 +52,6 @@ public class Item extends GenericJson {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public String getImageUrl() {
 		return imageUrl;
 	}
@@ -65,11 +60,27 @@ public class Item extends GenericJson {
 		this.imageUrl = imageUrl;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public int getReward() {
 		return reward;
 	}
 
 	public void setReward(int reward) {
 		this.reward = reward;
+	}
+
+	public boolean isRewarded() {
+		return rewarded;
+	}
+
+	public void setRewarded(boolean rewarded) {
+		this.rewarded = rewarded;
 	}
 }
